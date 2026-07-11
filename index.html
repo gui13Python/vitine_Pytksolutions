@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyTK Solutions — Utilitários para Windows, feitos por um dev só</title>
+<meta name="description" content="Catálogo de utilitários Windows da PyTK Solutions: programas pequenos, diretos e sem assinatura para resolver problemas específicos do seu dia a dia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="STYLE.CSS">
+</head>
+<body>
+
+<nav class="wrap">
+  <a href="index.html" class="logo"><span class="logo-key">⌘</span>PyTK Solutions</a>
+  <div class="nav-links">
+    <a href="#catalogo">Utilitários</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <a href="#catalogo" class="nav-cta">Ver utilitários</a>
+</nav>
+
+<header class="wrap hero">
+  <div class="hero-text">
+    <span class="eyebrow">Oficina de software indie</span>
+    <h1>Programas pequenos.<br>Problemas resolvidos.</h1>
+    <p class="lead">
+      A PyTK Solutions cria utilitários Windows que fazem <em>uma coisa</em> bem feita —
+      sem conta, sem assinatura mensal e sem inchar seu computador.
+    </p>
+    <div class="btn-row">
+      <a href="#catalogo" class="btn btn-primary">Ver utilitários disponíveis</a>
+      <a href="#sobre" class="btn btn-secondary">Como funciona a oficina</a>
+    </div>
+  </div>
+
+  <div class="hero-panel" aria-hidden="true">
+    <div class="panel-row">
+      <span class="panel-label">status da oficina</span>
+    </div>
+    <div class="panel-stats" id="panel-stats">
+      <div class="stat">
+        <span class="stat-num" id="stat-disponivel">–</span>
+        <span class="stat-label">disponível</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-construcao">–</span>
+        <span class="stat-label">em construção</span>
+      </div>
+    </div>
+    <div class="panel-footer">catalog.log · atualizado em tempo real</div>
+  </div>
+</header>
+
+<section id="catalogo" class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">Catálogo</span>
+    <h2>Todos os utilitários</h2>
+    <p class="section-head-p">Cada card abaixo é um programa independente. Escolha o que resolve o seu problema.</p>
+  </div>
+
+  <div class="catalog-grid" id="catalog-grid">
+    <!-- Os cards de produto são inseridos aqui pelo script.js -->
+  </div>
+</section>
+
+<section id="sobre" class="wrap sobre">
+  <div class="section-head">
+    <span class="eyebrow">Sobre a oficina</span>
+    <h2>Feito por uma pessoa só, testado de verdade</h2>
+  </div>
+  <div class="sobre-grid">
+    <div class="sobre-item">
+      <div class="sobre-mark">01</div>
+      <h3>Sem inchaço</h3>
+      <p>Nada de dashboard, login ou dependência de nuvem para uma tarefa simples. Cada utilitário roda local, direto no seu Windows.</p>
+    </div>
+    <div class="sobre-item">
+      <div class="sobre-mark">02</div>
+      <h3>Preço único</h3>
+      <p>Sem mensalidade escondida. Você paga uma vez pela licença e o programa é seu, com atualizações incluídas.</p>
+    </div>
+    <div class="sobre-item">
+      <div class="sobre-mark">03</div>
+      <h3>Transparência</h3>
+      <p>Cada produto explica exatamente o que faz, o que acessa no seu sistema e como pedir reembolso — sem letra miúda.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="wrap contato">
+  <div class="contato-box">
+    <div>
+      <h2>Sugestão de utilitário ou dúvida?</h2>
+      <p>Se tem alguma tecla travada (literal ou figurada) que nenhum programa resolve direito, me chama.</p>
+    </div>
+    <div class="contato-links">
+      <a class="btn btn-whatsapp" href="https://wa.me/+5535933004035?text=Olá, vim pelo site da PyTK Solutions." target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+      <a class="btn btn-secondary" href="mailto:gui13python@gmail.com?subject=Contato%20-%20PyTK%20Solutions">Enviar e-mail</a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  © 2026 PyTK Solutions — Todos os direitos reservados<br>
+  <a href="mailto:gui13python@gmail.com">gui13python@gmail.com</a> · pytksolutions.com.br
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
