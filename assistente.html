@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente IA de Dividendos — Renda Extra Dividendos</title>
+<meta name="description" content="Descreva seu perfil de investidor e receba sugestões de ativos pagadores de dividendos geradas por IA, com justificativa para cada escolha.">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#17362A">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="R+D Dividendos">
+</head>
+<body>
+
+<div class="ticker-tape"><div class="track" id="tickerTrack"></div></div>
+
+<header class="site">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <span class="mark">R+D</span>
+      <span>Renda Extra <small>Dividendos</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="index.html">Início</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html" class="active">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </nav>
+    <a href="carteira.html" class="nav-cta">Minha carteira</a>
+    <button class="burger" id="burger">☰</button>
+  </div>
+</header>
+
+<section style="padding-bottom:24px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Assistente com IA</div>
+      <h1 style="font-size:clamp(28px,3.6vw,40px)">Sugestões de ativos com base no seu perfil</h1>
+      <p style="color:var(--ink-soft); max-width:70ch">Preencha alguns dados sobre seus objetivos e a IA sugere uma composição de ativos pagadores de dividendos, com justificativa para cada escolha. As sugestões são geradas por um modelo de linguagem e podem conter erros — sempre confira antes de investir.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap split-form">
+
+    <div class="panel">
+      <h3 style="margin-bottom:14px;">Seu perfil</h3>
+
+      <div class="field">
+        <label>Objetivo principal</label>
+        <select id="iaObjetivo">
+          <option value="renda">Gerar renda passiva mensal o quanto antes</option>
+          <option value="crescimento">Crescer patrimônio no longo prazo, reinvestindo tudo</option>
+          <option value="equilibrio">Equilíbrio entre os dois</option>
+        </select>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Valor mensal disponível (R$)</label>
+          <input type="number" id="iaValorMensal" min="0" step="10" value="500">
+        </div>
+        <div class="field">
+          <label>Horizonte (anos)</label>
+          <input type="number" id="iaHorizonte" min="1" max="40" step="1" value="10">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tolerância a risco</label>
+        <select id="iaRisco">
+          <option value="baixa">Baixa — prefiro empresas mais estáveis</option>
+          <option value="media" selected>Média</option>
+          <option value="alta">Alta — aceito mais volatilidade por yield maior</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Setores de interesse (opcional)</label>
+        <input type="text" id="iaSetores" placeholder="Ex: energia, financeiro, FIIs">
+        <div class="hint">Deixe em branco para a IA considerar todos os setores.</div>
+      </div>
+
+      <div class="field">
+        <label>Quantos ativos você quer na sugestão?</label>
+        <input type="number" id="iaQtdAtivos" min="3" max="12" step="1" value="6">
+      </div>
+
+      <button class="btn btn-primary btn-block" id="btnGerarSugestao">Gerar sugestão com IA</button>
+
+      <details style="margin-top:18px;">
+        <summary style="cursor:pointer; font-size:13px; color:var(--ink-soft);">Configurar chave da API Groq (obrigatório)</summary>
+        <div style="margin-top:12px;">
+          <div class="field">
+            <label>Chave da API Groq</label>
+            <input type="password" id="groqKey" placeholder="gsk_...">
+            <div class="hint">Crie uma chave grátis em <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>. Ela fica salva só no seu navegador (nunca sai daqui, exceto para chamar a própria API da Groq).</div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn btn-ghost btn-sm" id="btnSalvarGroqKey">Salvar chave</button>
+            <button type="button" class="btn btn-danger btn-sm" id="btnResetarGroqKey">Resetar tudo</button>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div>
+      <div id="areaResultadoIA">
+        <div class="empty">
+          <h3>Suas sugestões aparecem aqui</h3>
+          <p>Preencha o perfil ao lado, cadastre sua chave da Groq e clique em "Gerar sugestão com IA".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand" style="color:var(--paper); margin-bottom:12px;">
+        <span class="mark">R+D</span><span>Renda Extra Dividendos</span>
+      </a>
+      <p class="disclaimer">As sugestões desta página são geradas por inteligência artificial a partir do perfil informado e de dados de referência ilustrativos. Não constituem recomendação de investimento nem substituem a análise de um profissional habilitado. Sua chave de API fica salva apenas no seu navegador.</p>
+    </div>
+    <div>
+      <h4>Navegar</h4>
+      <a href="index.html">Início</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </div>
+    <div>
+      <h4>Sobre</h4>
+      <a href="aprenda.html#faq">Perguntas frequentes</a>
+      <a href="aprenda.html">Glossário do investidor</a>
+    </div>
+  </div>
+  <div class="wrap bottom"><span>© <span id="anoAtual"></span> Renda Extra Dividendos. Conteúdo educativo, não é recomendação de investimento.</span></div>
+</footer>
+
+<script src="dados.js"></script>
+<script src="main.js"></script>
+<script src="assistente.js"></script>
+</body>
+</html>

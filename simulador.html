@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de Dividendos — Renda Extra Dividendos</title>
+<meta name="description" content="Simule ano a ano quanto seus dividendos podem crescer: informe ativo, quantidade, valorização esperada e reinvestimento e veja a projeção completa.">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#17362A">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="R+D Dividendos">
+</head>
+<body>
+
+<div class="ticker-tape"><div class="track" id="tickerTrack"></div></div>
+
+<header class="site">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <span class="mark">R+D</span>
+      <span>Renda Extra <small>Dividendos</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="index.html">Início</a>
+      <a href="simulador.html" class="active">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </nav>
+    <a href="carteira.html" class="nav-cta">Criar minha carteira</a>
+    <button class="burger" id="burger">☰</button>
+  </div>
+</header>
+
+<section style="padding-bottom:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Simulador de dividendos</div>
+      <h1 style="font-size:clamp(28px,3.6vw,40px)">Projete seus dividendos ano a ano</h1>
+      <p style="color:var(--ink-soft)">Escolha um ativo de referência ou informe seus próprios números. O simulador reajusta o preço e o dividendo por ano segundo suas expectativas de valorização e crescimento.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap split-form">
+
+    <!-- FORMULÁRIO -->
+    <div class="panel">
+      <div class="field">
+        <label>Ativo de referência</label>
+        <select id="fAtivo"></select>
+        <div class="hint">Selecionar preenche preço e DY automaticamente — você pode editar tudo.</div>
+      </div>
+
+      <div class="field" id="campoTickerCustom" style="display:none;">
+        <label>Ticker</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="fTickerCustom" placeholder="Ex: TAEE3, TAEE4..." maxlength="8" style="text-transform:uppercase">
+          <button type="button" class="btn btn-ghost btn-sm" id="btnBuscarCotacaoSim" style="white-space:nowrap;">🔎 Buscar preço</button>
+        </div>
+        <div class="hint" id="statusBuscaSim"></div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Quantidade de ações/cotas</label>
+          <input type="number" id="fQtd" value="100" min="1" step="1">
+        </div>
+        <div class="field">
+          <label>Preço atual (R$)</label>
+          <input type="number" id="fPreco" value="36.80" min="0.01" step="0.01">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Dividend Yield 12m (%)</label>
+          <input type="number" id="fDy" value="9.8" min="0" step="0.1">
+        </div>
+        <div class="field">
+          <label>Anos de simulação</label>
+          <input type="number" id="fAnos" value="10" min="1" max="30" step="1">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Valorização anual da ação (%)</label>
+          <input type="number" id="fValoriz" value="4" step="0.1">
+        </div>
+        <div class="field">
+          <label>Crescimento anual do dividendo (%)</label>
+          <input type="number" id="fCresc" value="5" step="0.1">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Aporte mensal adicional (R$)</label>
+        <input type="number" id="fAporte" value="0" min="0" step="10">
+        <div class="hint">Esse valor compra mais ações todo mês, pelo preço projetado daquele ano.</div>
+      </div>
+
+      <div class="field" style="display:flex; align-items:center; gap:10px; margin-top:22px;">
+        <input type="checkbox" id="fReinveste" checked style="width:auto;">
+        <label style="margin:0" for="fReinveste">Reinvestir os dividendos recebidos automaticamente</label>
+      </div>
+
+      <button class="btn btn-primary btn-block" id="btnCalcular" style="margin-top:8px;">Calcular projeção</button>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div>
+      <div class="grid grid-4" id="cardsResumo" style="margin-bottom:24px;"></div>
+
+      <div class="panel" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:14px;">Valor da carteira ao longo dos anos</h3>
+        <div id="chartValor"></div>
+      </div>
+
+      <div class="panel" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:14px;">Dividendos recebidos por ano</h3>
+        <div id="chartDiv"></div>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-bottom:14px;">Detalhamento ano a ano</h3>
+        <div style="overflow-x:auto;">
+        <table class="ledger" id="tabelaAnos">
+          <thead>
+            <tr>
+              <th>Ano</th><th class="num">Ações</th><th class="num">Preço</th>
+              <th class="num">Valor da carteira</th><th class="num">Dividendo/ano</th><th class="num">Dividendos acumulados</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        </div>
+      </div>
+
+      <p class="small" style="margin-top:16px">Simulação com fins educativos. Não considera imposto de renda, taxas de corretagem, nem garante que a empresa manterá o mesmo padrão de distribuição de dividendos no futuro.</p>
+      <a href="carteira.html" id="linkAddCarteira" class="btn btn-gold" style="margin-top:8px">Gostou? Adicionar este ativo à minha carteira →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand" style="color:var(--paper); margin-bottom:12px;">
+        <span class="mark">R+D</span><span>Renda Extra Dividendos</span>
+      </a>
+      <p class="disclaimer">As informações e simulações apresentadas neste site têm caráter educativo e ilustrativo. Não constituem recomendação de compra ou venda de nenhum ativo. Sempre confirme os dados antes de investir.</p>
+    </div>
+    <div>
+      <h4>Navegar</h4>
+      <a href="index.html">Início</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </div>
+    <div>
+      <h4>Sobre</h4>
+      <a href="aprenda.html#faq">Perguntas frequentes</a>
+      <a href="aprenda.html">Glossário do investidor</a>
+    </div>
+  </div>
+  <div class="wrap bottom"><span>© <span id="anoAtual"></span> Renda Extra Dividendos. Conteúdo educativo, não é recomendação de investimento.</span></div>
+</footer>
+
+<script src="dados.js"></script>
+<script src="main.js"></script>
+<script src="graficos.js"></script>
+<script src="simulador.js"></script>
+</body>
+</html>

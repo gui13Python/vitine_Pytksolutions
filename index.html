@@ -2,112 +2,197 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PyTK Solutions — Utilitários para Windows, feitos por um dev só</title>
-<meta name="description" content="Catálogo de utilitários Windows da PyTK Solutions: programas pequenos, diretos e sem assinatura para resolver problemas específicos do seu dia a dia.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renda Extra Dividendos — Simulador e Carteira de Dividendos da B3</title>
+<meta name="description" content="Simule quanto seus dividendos podem render, monte e acompanhe sua carteira de ações pagadoras de dividendos e aprenda a investir do zero, tudo em um só lugar e de graça.">
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#17362A">
+<link rel="icon" href="favicon-48.png" sizes="48x48" type="image/png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="R+D Dividendos">
 </head>
 <body>
 
-<nav class="wrap">
-  <a href="index.html" class="logo"><span class="logo-key">⌘</span>PyTK Solutions</a>
-  <div class="nav-links">
-    <a href="#catalogo">Utilitários</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#contato">Contato</a>
-  </div>
-  <a href="#catalogo" class="nav-cta">Ver utilitários</a>
-</nav>
+<div class="ticker-tape"><div class="track" id="tickerTrack"></div></div>
 
-<header class="wrap hero">
-  <div class="hero-text">
-    <span class="eyebrow">Oficina de software indie</span>
-    <h1>Programas pequenos.<br>Problemas resolvidos.</h1>
-    <p class="lead">
-      A PyTK Solutions cria utilitários Windows que fazem <em>uma coisa</em> bem feita —
-      sem conta, sem assinatura mensal e sem inchar seu computador.
-    </p>
-    <div class="btn-row">
-      <a href="#catalogo" class="btn btn-primary">Ver utilitários disponíveis</a>
-      <a href="#sobre" class="btn btn-secondary">Como funciona a oficina</a>
-    </div>
-  </div>
-
-  <div class="hero-panel" aria-hidden="true">
-    <div class="panel-row">
-      <span class="panel-label">status da oficina</span>
-    </div>
-    <div class="panel-stats" id="panel-stats">
-      <div class="stat">
-        <span class="stat-num" id="stat-disponivel">–</span>
-        <span class="stat-label">disponível</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num" id="stat-construcao">–</span>
-        <span class="stat-label">em construção</span>
-      </div>
-    </div>
-    <div class="panel-footer">catalog.log · atualizado em tempo real</div>
+<header class="site">
+  <div class="nav">
+    <a href="index.html" class="brand">
+      <span class="mark">R+D</span>
+      <span>Renda Extra <small>Dividendos</small></span>
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="index.html" class="active">Início</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </nav>
+    <a href="carteira.html" class="nav-cta">Criar minha carteira</a>
+    <button class="burger" id="burger">☰</button>
   </div>
 </header>
 
-<section id="catalogo" class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Catálogo</span>
-    <h2>Todos os utilitários</h2>
-    <p class="section-head-p">Cada card abaixo é um programa independente. Escolha o que resolve o seu problema.</p>
-  </div>
-
-  <div class="catalog-grid" id="catalog-grid">
-    <!-- Os cards de produto são inseridos aqui pelo script.js -->
-  </div>
-</section>
-
-<section id="sobre" class="wrap sobre">
-  <div class="section-head">
-    <span class="eyebrow">Sobre a oficina</span>
-    <h2>Feito por uma pessoa só, testado de verdade</h2>
-  </div>
-  <div class="sobre-grid">
-    <div class="sobre-item">
-      <div class="sobre-mark">01</div>
-      <h3>Sem inchaço</h3>
-      <p>Nada de dashboard, login ou dependência de nuvem para uma tarefa simples. Cada utilitário roda local, direto no seu Windows.</p>
-    </div>
-    <div class="sobre-item">
-      <div class="sobre-mark">02</div>
-      <h3>Preço único</h3>
-      <p>Sem mensalidade escondida. Você paga uma vez pela licença e o programa é seu, com atualizações incluídas.</p>
-    </div>
-    <div class="sobre-item">
-      <div class="sobre-mark">03</div>
-      <h3>Transparência</h3>
-      <p>Cada produto explica exatamente o que faz, o que acessa no seu sistema e como pedir reembolso — sem letra miúda.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contato" class="wrap contato">
-  <div class="contato-box">
+<section class="hero">
+  <div class="wrap">
     <div>
-      <h2>Sugestão de utilitário ou dúvida?</h2>
-      <p>Se tem alguma tecla travada (literal ou figurada) que nenhum programa resolve direito, me chama.</p>
+      <div class="eyebrow">Simulador de dividendos B3</div>
+      <h1>Descubra hoje quanto suas ações podem te pagar <em>todo mês</em>.</h1>
+      <p class="lead">Simule o crescimento dos seus dividendos ano a ano, monte uma carteira para acompanhar seus ativos favoritos e aprenda o passo a passo para viver de renda passiva — sem enrolação e sem precisar pagar nada.</p>
+      <div class="actions">
+        <a href="simulador.html" class="btn btn-primary">Simular meus dividendos</a>
+        <a href="aprenda.html" class="btn btn-ghost">Aprender do zero →</a>
+      </div>
+      <p class="fine">Sem cadastro para simular. Seus dados da carteira ficam salvos só no seu navegador.</p>
     </div>
-    <div class="contato-links">
-      <a class="btn btn-whatsapp" href="https://wa.me/+5535933004035?text=Olá, vim pelo site da PyTK Solutions." target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
-      <a class="btn btn-secondary" href="mailto:gui13python@gmail.com?subject=Contato%20-%20PyTK%20Solutions">Enviar e-mail</a>
+    <div class="receipt">
+      <div class="r-stamp">Pago</div>
+      <div class="r-head">
+        <b>Comprovante de Provento</b>
+        <span>REF. 07/2026</span>
+      </div>
+      <div class="r-row"><span>Ativo</span><b>TAEE11</b></div>
+      <div class="r-row"><span>Quantidade</span><b>320 cotas</b></div>
+      <div class="r-row"><span>Dividendo por cota</span><b>R$ 1,09</b></div>
+      <div class="r-row"><span>Dividend Yield (12m)</span><b>9,8% a.a.</b></div>
+      <div class="r-total">
+        <span>Total recebido no mês</span>
+        <b>R$ 348,80</b>
+      </div>
     </div>
   </div>
 </section>
 
-<footer class="wrap">
-  © 2026 PyTK Solutions — Todos os direitos reservados<br>
-  <a href="mailto:gui13python@gmail.com">gui13python@gmail.com</a> · pytksolutions.com.br
+<div class="wrap"><div class="tear"></div></div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head center" style="margin-inline:auto">
+      <div class="eyebrow" style="justify-content:center">Como funciona</div>
+      <h2>Três passos até seu primeiro comprovante</h2>
+      <p style="margin-inline:auto">Nada de planilha complicada. É só simular, montar e acompanhar.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="icon">1</div>
+        <h3>Simule um ativo</h3>
+        <p>Escolha uma ação ou FII, informe preço, quantidade e uma expectativa de valorização. Veja a projeção de dividendos ano a ano.</p>
+      </div>
+      <div class="card">
+        <div class="icon">2</div>
+        <h3>Monte sua carteira</h3>
+        <p>Adicione os ativos que você já tem ou pretende comprar e acompanhe valor investido, resultado e renda passiva estimada.</p>
+      </div>
+      <div class="card">
+        <div class="icon">3</div>
+        <h3>Aprenda o restante</h3>
+        <p>Guias diretos sobre dividend yield, reinvestimento, juros compostos e os erros mais comuns de quem está começando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Por que dividendos</div>
+      <h2>Renda que cai na conta, mesmo que o preço da ação oscile</h2>
+      <p>Diferente do salário, o provento não depende de você trabalhar naquele mês — ele depende da empresa continuar lucrando e distribuindo parte do lucro aos sócios. É assim que uma carteira bem escolhida vira uma segunda fonte de renda.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="stat-card">
+        <div class="k">Ativos de referência</div>
+        <div class="v">16+</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="k">DY médio simulado</div>
+        <div class="v">8,4%</div>
+      </div>
+      <div class="stat-card paper">
+        <div class="k">Custo para simular</div>
+        <div class="v">R$ 0</div>
+      </div>
+      <div class="stat-card">
+        <div class="k">Tempo até seu 1º plano</div>
+        <div class="v">~3 min</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="grid grid-2" style="align-items:center; gap:48px;">
+      <div>
+        <div class="eyebrow">Ativos sugeridos</div>
+        <h2>Alguns dos papéis mais usados por quem vive de dividendos</h2>
+        <p style="color:var(--ink-soft)">Valores de referência para te ajudar a começar a simular rápido — sempre confira a cotação e o histórico de proventos atualizados antes de investir.</p>
+        <a href="simulador.html" class="btn btn-primary" style="margin-top:8px">Simular um destes →</a>
+      </div>
+      <div>
+        <table class="ledger" id="tabelaSugeridos">
+          <thead><tr><th>Ativo</th><th>Setor</th><th class="num">Preço ref.</th><th class="num">DY 12m</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt center">
+  <div class="wrap">
+    <h2>Pronto para ver os números da sua carteira?</h2>
+    <p style="max-width:56ch; margin:0 auto 22px; color:var(--ink-soft)">Leva menos tempo do que ler esse parágrafo. Adicione seus ativos e veja o total investido, o resultado e a renda passiva estimada.</p>
+    <a href="carteira.html" class="btn btn-gold">Criar minha carteira agora</a>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand" style="color:var(--paper); margin-bottom:12px;">
+        <span class="mark">R+D</span><span>Renda Extra Dividendos</span>
+      </a>
+      <p class="disclaimer">As informações e simulações apresentadas neste site têm caráter educativo e ilustrativo. Não constituem recomendação de compra ou venda de nenhum ativo. Cotações e dividendos usados como referência podem estar desatualizados — sempre confirme os dados antes de investir. Investimentos em renda variável envolvem risco de perda.</p>
+    </div>
+    <div>
+      <h4>Navegar</h4>
+      <a href="index.html">Início</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="carteira.html">Minha Carteira</a>
+      <a href="assistente.html">Assistente IA</a>
+      <a href="aprenda.html">Aprenda a Investir</a>
+    </div>
+    <div>
+      <h4>Sobre</h4>
+      <a href="aprenda.html#faq">Perguntas frequentes</a>
+      <a href="aprenda.html">Glossário do investidor</a>
+    </div>
+  </div>
+  <div class="wrap bottom">
+    <span>© <span id="anoAtual"></span> Renda Extra Dividendos. Conteúdo educativo, não é recomendação de investimento.</span>
+  </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="dados.js"></script>
+<script src="main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const tbody = document.querySelector('#tabelaSugeridos tbody');
+  ATIVOS_REFERENCIA.slice(0,8).forEach(a=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><b>${a.ticker}</b><br><span class="small">${a.nome}</span></td>
+      <td>${a.setor}</td>
+      <td class="num">${formatarBRL(a.preco)}</td>
+      <td class="num tag-up">${formatarNum(a.dy,1)}%</td>`;
+    tbody.appendChild(tr);
+  });
+});
+</script>
 </body>
 </html>
